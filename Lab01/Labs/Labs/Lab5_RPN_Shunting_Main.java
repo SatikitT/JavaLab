@@ -64,7 +64,7 @@ public class Lab5_RPN_Shunting_Main {
     }
     
     public static void computeInfix(String infixString) {
-        String postfixString = MyShunting.infixToPostfix(infixString);
+        String postfixString = MyShuntingYard.infixToPostfix(infixString);
         double ans = MyRPN.computeRPN(postfixString);
         System.out.println(ans);
     }

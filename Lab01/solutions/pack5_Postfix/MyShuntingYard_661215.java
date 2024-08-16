@@ -2,7 +2,7 @@ package solutions.pack5_Postfix;
 
 import java.util.StringTokenizer;
 
-public class MyShunting {
+public class MyShuntingYard {
     private static int order(String c) {
         return switch (c) {
             case "+", "-" -> 1;
@@ -12,7 +12,7 @@ public class MyShunting {
     }
 
     public static String infixToPostfix(String infixString) {
-        MyQueueListWrap<String> queue = new MyQueueL();
+        MyQueueListWrap<String> queue = new MyQueueListWrap<>();
         MyStackL stack = new MyStackL();
         String resultPostfixString = "";
         StringTokenizer st = new StringTokenizer(infixString);
