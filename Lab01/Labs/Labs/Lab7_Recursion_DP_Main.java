@@ -11,7 +11,7 @@ public class Lab7_Recursion_DP_Main {
         testEqualSubsets();
         System.out.println("----");
         testSubSets();
-        // testGridPaths();
+        testGridPaths();
     }
     static void testEqualSubsets() {
         int [] a = {1,1,5,5};
