@@ -47,6 +47,7 @@ public class Lab10_BST_Main {
 		System.out.println(bst.count());
 		System.out.println(bst.search(53));
 		System.out.println(bst.search(46));
+		bst.delete(53);
 		System.out.println(bst.height());
 		System.out.println(bst.count());
 	}
