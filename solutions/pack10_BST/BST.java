@@ -3,8 +3,6 @@ package solutions.pack10_BST;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.ListUI;
-
 public class BST {
     TreeNode root;
 
@@ -179,7 +177,7 @@ public class BST {
         return countRecur(q.left) + countRecur(q.right) + 1;
     }
 
-    public int findMedian() {
+    public double findMedian() {
         List<Integer> result = getTreeAsList(root);
         if(result.size() % 2 == 1){
             return result.get(result.size()/2);
@@ -190,7 +188,7 @@ public class BST {
     public int findRank(int d) {
         List<Integer> result = getTreeAsList(root);
         for (int i = 0; i < result.size(); i++){
-            if (result.get(i) == d) return i;
+            if (result.get(i) == d) return i + 1;
         }
         return -1;
     }
