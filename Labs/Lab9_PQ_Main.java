@@ -1,35 +1,37 @@
 package Labs;
 
+import java.util.ArrayList;
 import solutions.pack9_Heap.*;
 
-import java.util.ArrayList;
-
-public class L9_PQ_Main {
+public class Lab9_PQ_Main {
     static ArrayList<Integer> least3;
-
+    
     public static void main(String[] args) {
         System.out.println("-task1---");
         task1();
-        System.out.println("-task2---");
-        task2();
-        System.out.println("-task3---");
-        task3();
+        // System.out.println("-task2---");
+        // task2();
+        // System.out.println("-task3---");
+        // task3();
     }
 
     static void task1() {
         least3 = new ArrayList<>();
         MyMinHeap heap = new MyMinHeap();
-        heap.insert(11);
-        heap.insert(15);
-        heap.insert(16);
-        heap.insert(13);
-        heap.insert(17);
-        heap.insert(18);
-        System.out.println("heap structure is " + heap);
-        least3.add(heap.remove());
-        least3.add(heap.remove());
-        least3.add(heap.remove());
-        System.out.println("least 3 value is " + least3);
+        heap.insert(1);
+        heap.insert(4);
+        heap.insert(2);
+        heap.insert(8);
+        heap.insert(10);
+        heap.insert(9);
+        heap.insert(3);
+        // heap.insert(18);
+        System.out.println("heap structure is \n" + heap);
+        heap.remove();
+        System.out.println("heap structure is \n" + heap);
+        // least3.add(heap.remove());
+        // least3.add(heap.remove());
+        // System.out.println("least 3 value is " + least3);
     }
 
     static void task2() {

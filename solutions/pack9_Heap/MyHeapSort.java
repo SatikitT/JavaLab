@@ -4,9 +4,9 @@ public class MyHeapSort extends MyMinHeap {
 
     public String sort(){
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; size > 0; i++) {
+        while (size > 0) {
             int d = remove();
-            sb.append(d + " ");
+            sb.append(d).append(" ");
         }
         return new String(sb);
     }

@@ -6,8 +6,6 @@ public class Lab10_BST_Main {
 	public static void main(String[] args) {
 		System.out.println("Example output:");
 		task1();
-		task2();
-		task3();
 	}
 	public static void task1() {
 		System.out.println("--- task 1 ---");
@@ -23,8 +21,7 @@ public class Lab10_BST_Main {
 		System.out.println(bst.search(12));
 		System.out.println(bst.search(1));
 		bst.delete(12);
-		bst.delete(25);
-		bst.delete(100);
+		bst.delete(10);
 		System.out.println(bst.search(12));
 		System.out.println(bst.search(20));
 	}

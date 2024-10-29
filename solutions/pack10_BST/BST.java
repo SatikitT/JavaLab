@@ -17,17 +17,16 @@ public class BST {
     public TreeNode search(int d) {
         if (root == null)
             return null;
-        if (d == root.data)
+        if (root.data == d)
             return root;
-
         TreeNode current = root;
         while (current != null) {
             if (current.data == d) {
                 return current;
             }
-            if (d < current.data)
+            if (d < current.data) {
                 current = current.left;
-            else {
+            } else {
                 current = current.right;
             }
         }
@@ -35,117 +34,70 @@ public class BST {
     }
 
     public void insert(int d) {
+        TreeNode q = new TreeNode(d);
         if (root == null) {
-            root = new TreeNode(d);
+            root = q;
             return;
         }
         TreeNode current = root;
-        while (current != null) {
-            if (d < current.data) {
-                if (current.left != null) {
+        while (true) {
+            if (d < current.data)
+                if (current.left == null){
+                    current.left = q;
+                    q.parent = current;
+                    break;
+                }
+                else 
                     current = current.left;
+            else 
+                if (current.right == null) {
+                    current.right = q;
+                    q.parent = current;
+                    break;
                 } else {
-                    current.left = new TreeNode(d);
-                    current.left.parent = current;
-                    return;
-                }
-            } else { // ! (d < p.data)
-                if (current.right != null)
                     current = current.right;
-                else {
-                    current.right = new TreeNode(d);
-                    current.right.parent = current;
-                    return;
                 }
-            }
         }
     }
 
     public void delete(int d) {
-        if (root == null)
-            return; // not found
+        if (root == null) 
+            return;
 
         TreeNode current = root;
-        while (current != null) {
-            if (d < current.data)
+        while (true) {
+            if (d < current.data) {
                 current = current.left;
-            else if (d > current.data)
+            } else if (d > current.data) {
                 current = current.right;
-            else { // found!! now, time to delete
-                if ((current.left == null) || (current.right == null)) { // 0 or 1 child
-                    TreeNode q = (current.left == null) ? current.right : current.left;
-                    if (current.parent.left == current) // this current is a left child
-                        current.parent.left = q;
-                    else
-                        current.parent.right = q;
-                    if (q != null)
-                        q.parent = current.parent;
-                } else { // 2 children
-                    TreeNode q = findMaxFrom(current.left);
-                    delete(q.data);
-                    if (current.parent.left == current)
-                        current.parent.left = q;
-                    else
-                        current.parent.right = q;
-                    q.left = current.left;
-                    q.right = current.right;
-                    q.parent = current.parent;
+            } else {
+                if (current.right == null || current.left == null){
+                    TreeNode temp = current.right != null ? current.right : current.left;
+                    
+                    if (current.parent == null) {
+                        root = temp;
+                    } else if (current.parent.right == current) {
+                        current.parent.right = temp;
+                    } else {
+                        current.parent.left = temp;
+                    }
+
+                    if (temp != null)
+                        temp.parent = current.parent;
+                } else {
+                    TreeNode temp = findMax(current.left);
+                    delete(temp.data);
+                    int tempData = temp.data;
+                    current.data = tempData;
                 }
-                current = null;
+                break;
             }
         }
     }
 
-    TreeNode findMaxFrom(TreeNode q) {
-        TreeNode max = null;
-        max = q;
-        while (q != null) {
-            if (q.data > max.data) {
-                max = q;
-            }
-            if (q.right != null){
-                q = q.right;
-            } else {
-                q = q.left;
-            }
-            
-        }
-        return max;
-    }
-
-    public TreeNode findMax() {
-        TreeNode max = null;
-        TreeNode q = root;
-        max = q;
-        while (q != null) {
-            if (q.data > max.data) {
-                max = q;
-            }
-
-            if (q.right != null){
-                q = q.right;
-            } else {
-                q = q.left;
-            }
-        }
-        return max;
-    }
-
-    public TreeNode findMin() {
-        TreeNode min = null;
-        TreeNode q = root;
-        min = q;
-        while (q != null) {
-            if (q.data < min.data) {
-                min = q;
-            }
-            if (q.left != null){
-                q = q.left;
-            } else {
-                q = q.right;
-            }
-        }
-        return min;
+    TreeNode findMax(TreeNode p) {
+        if (p.right == null) return p;
+        return findMax(p.right);
     }
 
     public int height() {

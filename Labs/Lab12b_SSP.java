@@ -31,6 +31,8 @@ public class Lab12b_SSP {
 
         Dijkstra dijkstra = new Dijkstra(adjMatrix, 0);
         dijkstra.findSSP();
+        dijkstra.bfs();
+        dijkstra.dfs();
 
         // Expected output:
         /*
@@ -55,6 +57,7 @@ public class Lab12b_SSP {
         dijkstra.findSSP();
         System.out.println();
         dijkstra.printAllSSP();
+    
 
         // Expected output:
         /*
