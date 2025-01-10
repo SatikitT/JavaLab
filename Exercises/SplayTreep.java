@@ -3,44 +3,44 @@ package Exercises;
 public class SplayTreep {
     TreeNode root;
 
-    public TreeNode search(int key) {
-        TreeNode n = root;
-        while (n != null) {
-            if (key < n.data) {
-                n = n.left;
-            } else if (key > n.data) {
-                n = n.right;
+    TreeNode search(int d) {
+        TreeNode current = root;
+        while(current != null) {
+            if (d < current.data) {
+                current = current.left;
+            } else if (d > current.data) {
+                current = current.right;
             } else {
-                splay(n);
-                return n;
+                splay(current);
+                return current;
             }
         }
-        return n;
+        return null;
     }
 
     public void delete(int key) {
         TreeNode n = search(key);
-        if (n == null)
-            return;
-        
+        if (n == null) return;
+
         splay(n);
         if (n.left != null) {
-            TreeNode leftSubTree = n.left;
-            leftSubTree.parent = null;
-            TreeNode rightSubTree = n.right;
-            n.left = n.right = null;
+            TreeNode leftTree = n.left;
+            n.left.parent = null;
+            if (n.right != null){
+                TreeNode rightTree = n.right;
+                n.right.parent = null;
 
-            TreeNode max = findMax(leftSubTree);
-            splay(max);
-
-            if (rightSubTree != null) {
-                max.right = rightSubTree;
-                rightSubTree.parent = max;
+                root = leftTree;
+                TreeNode max = findMax(leftTree);
+                splay(max);
+                max.right = rightTree;
+                rightTree.parent = max;
+            } else {
+                root = leftTree;
             }
-            root = max;
-        } else if (n.right != null) {
+        } else if (n.right != null){
             root = n.right;
-            root.parent = null;
+            n.right.parent = null;
         } else {
             root = null;
         }
@@ -51,23 +51,24 @@ public class SplayTreep {
         return findMax(n.right);
     }
 
-    public void splay(TreeNode n) {
-        while (n.parent != null) {
+    void splay(TreeNode n) {
+        if (n == null) return;
+        while (n.parent != null){
             if (n.parent.parent == null) {
                 if (n.parent.left == n) {
                     rotateRight(n.parent);
                 } else {
-                    rotateLeft(n.parent);
+                    rotateLeft(n);
                 }
-            } else if (n.parent.left == n && n.parent.parent.left == n.parent) {
+            } else if (n.parent.left == n && n.parent.parent.left == n.parent ) {
                 rotateRight(n.parent.parent);
                 rotateRight(n.parent);
             } else if (n.parent.right == n && n.parent.parent.right == n.parent) {
                 rotateLeft(n.parent.parent);
                 rotateLeft(n.parent);
-            } else if (n.parent.left == n && n.parent.parent.right == n.parent) {
-                rotateRight(n.parent);
+            } else if (n.parent.right == n && n.parent.parent.left == n.parent){
                 rotateLeft(n.parent);
+                rotateRight(n.parent);
             } else {
                 rotateLeft(n.parent);
                 rotateRight(n.parent);
