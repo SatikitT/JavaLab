@@ -114,35 +114,54 @@ public class AVLTreep {
         return node;
     }
 
-    void delete(int d) {
+    void delete (int d){
         root = delete(root, d);
     }
 
-    TreeNode delete(TreeNode n, int d){
-        if (n == null) return n;
+    TreeNode delete(TreeNode node, int d) {
+        if (node == null) return null;
 
-        if (d < n.left.data){
-            n.left = delete(n.left, d);
-        } else if (d > n.right.data) {
-            n.right = delete(n.right, d);
+        if (d < node.data) {
+            node.left = delete(node.left, d);
+        } else if (d > node.data) {
+            node.right = delete(node.right, d);
         } else {
-            if (n.right == null || n.left == null) {
-                TreeNode q = n.right != null ? n.right : n.left;
+            if (node.right == null || node.left == null) {
+                TreeNode temp = node.right != null ? node.right : node.left;
 
-                if (q == null) {
-                    n = null;
+                if (temp == null) {
+                    node = null;
                 } else {
-                    q.parent = n.parent;
-                    n = q;
+                    temp.parent = node.parent;
+                    node = temp;
                 }
             } else {
-                TreeNode q = findMin(n.right);
-                n.data = q.data;
-                delete(n.right, q.data);
+                TreeNode temp = findMin(node.right);
+                node.data = temp.data;
+                node.right = delete(node.right, temp.data);
             }
         }
 
-        return n;
+        if (node == null) return null;
+
+        updateHeights(node);
+        int balance = getBalance(node);
+
+        if (balance > 1 && getBalance(node.left) >= 0){
+            return rotateRight(node);
+        } 
+        if (balance < -1 && getBalance(node.right) <= 0) {
+            return rotateLeft(node);
+        }
+        if (balance > 1 && getBalance(node.left) < 0) {
+            node.left = rotateLeft(node.left);
+            return rotateRight(node);
+        }
+        if (balance < -1 && getBalance(node.right) > 0) {
+            node.right = rotateRight(node.right);
+            return rotateLeft(node);
+        }
+        return node;
     }
 
     TreeNode findMin(TreeNode n) {

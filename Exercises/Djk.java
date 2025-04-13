@@ -25,16 +25,16 @@ public class Djk {
         Arrays.fill(visited, false);
 
         distance[source] = 0;
-        
-        for (int c = 0; c < adjMatrix.length; c++){
+
+        for (int count = 0; count < adjMatrix.length; count++){
             int u = minDistance(distance, visited);
-            if (u == -1) break;
+            if (u == -1) return;
             visited[u] = true;
             
             for (int v = 0; v < adjMatrix.length; v++) {
-                if (!visited[v] && distance[v] != Integer.MAX_VALUE
-                    && adjMatrix[u][v] != -1
-                    && distance[u] + adjMatrix[u][v] < distance[v]) {
+                if (!visited[v] && adjMatrix[u][v] != -1 &&
+                    distance[u] != Integer.MAX_VALUE &&
+                    distance[u] + adjMatrix[u][v] < distance[v]) {
                         distance[v] = distance[u] + adjMatrix[u][v];
                         previous[v] = u;
                     }
@@ -45,47 +45,28 @@ public class Djk {
 
     int minDistance(int[] distance, boolean[] visited){
         int min = Integer.MAX_VALUE, minIndex = -1;
-
-        for (int i = 0; i < adjMatrix.length; i++){
-            if (!visited[i] && distance[i] < min) {
-                min =  distance[i]; 
+        for (int i = 0; i < adjMatrix.length; i++) {
+            if (!visited[i] && min < distance[i]) {
                 minIndex = i;
+                min = distance[i];
             }
         }
         return minIndex;
     }
 
-
-    public void bfs(){
+    void bfs() {
         Arrays.fill(visited, false);
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(source);
         visited[source] = true;
 
-        while (!queue.isEmpty()) {
-            int p = queue.poll();
-            System.out.println(p + ", ");
+        while(!queue.isEmpty()) {
+            int u = queue.poll();
+            System.out.print(u + " ");
             for (int i = 0; i < adjMatrix.length; i++) {
-                if (!visited[i] && adjMatrix[p][i] != -1) {
+                if (!visited[i] && adjMatrix[u][i] != -1){
                     queue.add(i);
                     visited[i] = true;
                 }
-            }
-        }
-    }
-
-
-    void dfs() {
-        Arrays.fill(visited, false);
-        dfs(source);
-    }
-
-    void dfs (int u) {
-        visited[u] = true;
-        System.out.println(u + " ");
-        for (int i = 0; i < adjMatrix.length; i++) {
-            if(!visited[i] && adjMatrix[u][i] != -1){
-                dfs(i);
             }
         }
     }

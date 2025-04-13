@@ -11,16 +11,16 @@ public class Sort {
     
     public static void main(String[] arg){
         int[] a = {9, 5, 3, 1, 4, 7, 8};
-        System.out.println(Arrays.toString(bubbleSort(a.clone())));
-        System.out.println(Arrays.toString(selectionSort(a.clone())));
-        System.out.println(Arrays.toString(insertionSort(a.clone())));
-        System.out.println(Arrays.toString(countSort(a)));
-        System.out.println(Arrays.toString(quickSort(a, 0, a.length - 1)));
-        System.out.println(Arrays.toString(mergeSort(a)));
-        System.out.println(Arrays.toString(radixSort(a, 1)));
-        System.out.println(Arrays.toString(bucketSort(a)));
-        System.out.println(Arrays.toString(shellSort(a)));
-        System.out.println(Arrays.toString(heapSort(a)));
+        //System.out.println(Arrays.toString(bubbleSort(a.clone())));
+        //System.out.println(Arrays.toString(selectionSort(a.clone())));
+        //System.out.println(Arrays.toString(insertionSort(a.clone())));
+        //System.out.println(Arrays.toString(countSort(a.clone())));
+        //System.out.println(Arrays.toString(quickSort(a.clone(), 0, a.length - 1)));
+        System.out.println(Arrays.toString(mergeSort(a.clone())));
+        System.out.println(Arrays.toString(radixSort(a.clone(), 1)));
+        System.out.println(Arrays.toString(bucketSort(a.clone())));
+        System.out.println(Arrays.toString(shellSort(a.clone())));
+        System.out.println(Arrays.toString(heapSort(a.clone())));
     }
 
     //              Compare Swap
@@ -130,13 +130,11 @@ public class Sort {
         while (left.length > l && right.length > r){
 
             if (left[l] <= right[r]){
-                result[i] = left[l];
-                i++;
+                result[i++] = left[l++];
             } else {
-                result[i] = right[r];
-                r++;
+                result[i++] = right[r++];
+
             }
-            l++;
         }
     
         while (l < left.length) {
