@@ -191,4 +191,33 @@ public class SplayTree {
             printTree(node.right);
         }
     }
+
+    void delete2(int d) {
+        TreeNode node = search(d);
+        if (node == null) return;
+
+        splay(node);
+        if (node.left != null) {
+            TreeNode leftSubTree = node.left;
+            leftSubTree.parent = null;
+
+            if (node.right != null) {
+                TreeNode rigthSubTree = node.right;
+
+                TreeNode max = findMax(leftSubTree);
+                splay(max);
+                root = max;
+                max.right = rigthSubTree;
+                rigthSubTree.parent = max;
+            } else {
+                root = leftSubTree;
+            }
+        } else if (node.right != null) {
+            root = node.right;
+            root.parent = null;
+        } else {
+            root = null;
+        }
+
+    }
 }

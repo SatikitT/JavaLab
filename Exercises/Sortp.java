@@ -44,14 +44,14 @@ public class Sortp {
     }
 
     int[] insertionSort(int[] arr) {
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 1; i < arr.length; i++){
             int key = arr[i];
             int j = i - 1;
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 1] = arr[j];
+            while (j >= 0 && arr[j] < key){
+                arr[j+1] = arr[j];
                 j--;
             }
-            arr[j + 1] = key;
+            arr[j+1] = key;
         }
         return arr;
     }
@@ -149,4 +149,19 @@ public class Sortp {
         return arr;
     }
 
+    int[] shellSort(int[] arr) {
+        for (int gap = arr.length/2; gap > 0; gap/=2) {
+            for (int i = gap; i < arr.length; i++) {
+                int temp = arr[i];
+                int j = i;
+                while (j>=gap && arr[j - gap] > temp) {
+                    arr[j] = arr[j-gap];
+                    j -= gap;
+                }
+
+                arr[j] = temp;
+            }
+        }
+        return arr;
+    }
 }

@@ -30,6 +30,7 @@ public class Djk {
             int u = minDistance(distance, visited);
             if (u == -1) break;
             visited[u] = true;
+            
             for (int v = 0; v < adjMatrix.length; v++) {
                 if (!visited[v] && distance[v] != Integer.MAX_VALUE
                     && adjMatrix[u][v] != -1

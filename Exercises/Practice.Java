@@ -5,14 +5,7 @@ import java.util.Scanner;
 public class Practice {
 
     public static void main(String[] args) {
-        BST tree = new BST();
-        tree.insert(2);
-        tree.insert(1);
-        tree.insert(9);
-        tree.insert(7);
-        tree.insert(4);
-        tree.delete(7);
-        tree.printInOrder();
+        System.out.println(reverseString("aek"));
     }
     
     public static void ex6(){
@@ -27,4 +20,11 @@ public class Practice {
          
         System.out.println(String.format("%d + %d = %d", a, b, a+b));
     }
+
+    static String reverseString(String text) {
+        if (text.length() == 0) 
+            return text;
+
+        return reverseString(text.substring(1)) + text.charAt(0);
+    }   
 }

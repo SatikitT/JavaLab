@@ -27,15 +27,17 @@ public class Dijkstra {
         for (int count = 0; count < adjMatrix.length - 1; count++) {
             int u = minDistance(distance, visited);
             if (u == -1) break;
-
+            
             visited[u] = true;
             for (int v = 0; v < adjMatrix.length; v++) {
                 if (!visited[v] && adjMatrix[u][v] != -1 && distance[u] != Integer.MAX_VALUE &&
                     distance[u] + adjMatrix[u][v] < distance[v]) {
+                    System.out.println(distance[u] + " + " + adjMatrix[u][v]);
                     distance[v] = distance[u] + adjMatrix[u][v];
                     previous[v] = u;
                 }
             }
+            System.out.println(Arrays.toString(distance));
         }
         System.out.println("Distances: " + Arrays.toString(distance));
         System.out.println("Previous nodes: " + Arrays.toString(previous));
@@ -49,6 +51,7 @@ public class Dijkstra {
                 minIndex = v;
             }
         }
+        System.out.println(minIndex);
         return minIndex;
     }
 
@@ -129,4 +132,85 @@ public class Dijkstra {
         }
         System.out.println();
     }
+
+    public void findMST() {
+        int[] key = new int[adjMatrix.length];
+        int[] parent = new int[adjMatrix.length];
+        boolean[] inMST = new boolean[adjMatrix.length];
+    
+        Arrays.fill(key, Integer.MAX_VALUE);
+        Arrays.fill(parent, -1);
+        key[source] = 0;
+    
+        for (int count = 0; count < adjMatrix.length - 1; count++) {
+            int u = minKey(key, inMST); // Pick the minimum key vertex not yet included in MST
+            inMST[u] = true;
+    
+            for (int v = 0; v < adjMatrix.length; v++) {
+                // Update key and parent only if adjMatrix[u][v] is a valid edge
+                // and v is not yet in MST and the weight of edge u-v is less than key[v]
+                if (adjMatrix[u][v] != -1 && !inMST[v] && adjMatrix[u][v] < key[v]) {
+                    key[v] = adjMatrix[u][v];
+                    parent[v] = u;
+                }
+            }
+        }
+        printMST(parent);
+    }
+    
+    private int minKey(int[] key, boolean[] inMST) {
+        int min = Integer.MAX_VALUE, minIndex = -1;
+        for (int v = 0; v < adjMatrix.length; v++) {
+            if (!inMST[v] && key[v] < min) {
+                min = key[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+    
+    public void printMST(int[] parent) {
+        System.out.println("Edge \tWeight");
+        for (int i = 1; i < adjMatrix.length; i++) {
+            if (parent[i] != -1) {
+                System.out.println(parent[i] + " - " + i + "\t" + adjMatrix[i][parent[i]]);
+            }
+        }
+    }
+    
+    void findMST2() {
+        int[] parent = new int[adjMatrix.length];
+        int[] dist = new int[adjMatrix.length];
+        boolean[] vstd = new boolean[adjMatrix.length];
+
+        Arrays.fill(vstd, false);
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        dist[source] = 0;
+
+        for (int count = 0; count < adjMatrix.length - 1; count++) {
+            int u = findMin(dist, vstd);
+
+            vstd[u] = true;
+
+            for (int v = 0; v < adjMatrix.length; v++) {
+                if (!vstd[v] && adjMatrix[u][v] != -1 && adjMatrix[u][v] < dist[v]) {
+                    dist[v] = adjMatrix[u][v];
+                    parent[v] = u;
+                }
+            }
+        }
+    }
+
+    int findMin(int[] dist, boolean[] vstd){
+        int min = Integer.MAX_VALUE, minIndex = -1;
+        for (int i = 0; i < adjMatrix.length; i++) {
+            if (!vstd[i] && dist[i] < min) {
+                min = dist[i];
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
 }

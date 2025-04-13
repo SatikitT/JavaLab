@@ -9,12 +9,12 @@ public class Lab12b_SSP {
         System.out.println("Task 1:");
         task1();
 
-        System.out.println("\nTask 2:");
-        task2();
+        // System.out.println("\nTask 2:");
+        // task2();
 
-        System.out.println("\nTask 3:");
-        task3();
-        System.out.println("bye");
+        // System.out.println("\nTask 3:");
+        // task3();
+        // System.out.println("bye");
 
     }
 
@@ -31,6 +31,7 @@ public class Lab12b_SSP {
 
         Dijkstra dijkstra = new Dijkstra(adjMatrix, 0);
         dijkstra.findSSP();
+        dijkstra.findMST();
         dijkstra.bfs();
         dijkstra.dfs();
 
